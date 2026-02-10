@@ -1,0 +1,398 @@
+/* Contract Detail Page Styles */
+
+.contract-detail-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  color: #333;
+  min-height: 100vh;
+}
+
+.contract-detail-header {
+  margin-bottom: 30px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #3b82f6;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.back-link:hover {
+  background-color: #f3f4f6;
+  color: #1d4ed8;
+}
+
+.back-arrow {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.contract-header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.contract-detail-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+  line-height: 1.2;
+  flex: 1;
+}
+
+.contract-status-badge {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.contract-status-badge.status-available {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+.contract-status-badge.status-assigned {
+  background-color: #fff8e1;
+  color: #f57c00;
+  border: 1px solid #ffecb3;
+}
+
+.contract-status-badge.status-completed {
+  background-color: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #bbdefb;
+}
+
+.contract-detail-content {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.contract-detail-card {
+  padding: 30px;
+}
+
+.detail-section {
+  margin-bottom: 30px;
+}
+
+.detail-section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 16px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+.detail-section-content {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #4b5563;
+}
+
+.description-content {
+  background-color: #f9fafb;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
+}
+
+.description-line {
+  margin-bottom: 12px;
+}
+
+.description-line:last-child {
+  margin-bottom: 0;
+}
+
+.detail-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 30px;
+}
+
+.detail-info-item {
+  padding: 20px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.detail-info-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 8px 0;
+}
+
+.detail-info-value {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.detail-info-value.highlight {
+  color: #059669;
+  font-size: 1.25rem;
+}
+
+.detail-info-value.status-available {
+  color: #2e7d32;
+}
+
+.detail-info-value.status-assigned {
+  color: #f57c00;
+}
+
+.detail-info-value.status-completed {
+  color: #1565c0;
+}
+
+.witcher-info {
+  margin-top: 8px;
+}
+
+.witcher-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+}
+
+.witcher-school {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0 0 8px 0;
+  font-style: italic;
+}
+
+.witcher-skills {
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.skills-label {
+  font-weight: 500;
+  color: #374151;
+}
+
+.skills-list {
+  color: #6b7280;
+}
+
+.witcher-not-loaded {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  font-style: italic;
+  margin-left: 8px;
+}
+
+.contract-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 30px;
+  background-color: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  gap: 16px;
+}
+
+.action-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.witcher-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.assign-button,
+.complete-button {
+  width: 100%;
+}
+
+.complete-button {
+  background-color: #10b981;
+  border-color: #10b981;
+  color: white;
+}
+
+.complete-button:hover:not(:disabled) {
+  background-color: #059669;
+  border-color: #059669;
+}
+
+.complete-button:disabled {
+  background-color: #a7f3d0;
+  border-color: #a7f3d0;
+}
+
+.assigned-notice,
+.completed-notice,
+.login-notice {
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.assigned-notice {
+  background-color: #fff7ed;
+  border: 1px solid #fed7aa;
+}
+
+.completed-notice {
+  background-color: #f0f9ff;
+  border: 1px solid #bae6fd;
+}
+
+.login-notice {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.notice-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: block;
+}
+
+.assigned-notice .notice-text {
+  color: #9a3412;
+}
+
+.completed-notice .notice-text {
+  color: #0369a1;
+}
+
+.login-notice .notice-text {
+  color: #475569;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+}
+
+.loading-container p {
+  margin-top: 20px;
+  color: #6b7280;
+  font-size: 1.125rem;
+}
+
+.error-container {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: white;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.error-container h2 {
+  color: #dc2626;
+  margin: 0 0 16px 0;
+  font-size: 1.5rem;
+}
+
+.error-container p {
+  color: #6b7280;
+  margin: 0 0 24px 0;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .contract-detail-container {
+    padding: 16px;
+  }
+  
+  .contract-detail-card {
+    padding: 20px;
+  }
+  
+  .contract-header-main {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .contract-detail-title {
+    font-size: 1.75rem;
+  }
+  
+  .detail-info-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .contract-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .contract-actions button {
+    width: 100%;
+  }
+  
+  .detail-section-title {
+    font-size: 1.125rem;
+  }
+  
+  .action-group {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .action-group button {
+    flex: 1;
+    min-width: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contract-detail-title {
+    font-size: 1.5rem;
+  }
+  
+  .contract-status-badge {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+}

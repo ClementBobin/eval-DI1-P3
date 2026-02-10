@@ -1,0 +1,12 @@
+/**
+ * Protected Route Component Styles
+ */
+
+.protected-route-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-size: 1rem;
+  color: var(--foreground);
+}

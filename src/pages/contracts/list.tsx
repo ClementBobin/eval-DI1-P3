@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { ContractsAPI } from '@/lib/api/contracts';
 import type { Contract } from '@/types/contracts';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectItem } from '@/components/ui/select';
 import { useDebounce } from '@/hooks/use-debounce';
-import './contracts.css';
 import { Spinner } from '../../components/ui/spinner';
+import { ContractCard } from '@/components/contracts/ContractCard';
+import { ContractFilters as ContractFiltersComponent } from '@/components/contracts/ContractFilters';
+import '@/styles/contracts-global.css';
 
-// Types pour les filtres
 interface ContractFilters {
   title?: string;
   status?: 'Available' | 'Assigned' | 'Completed' | '';
@@ -19,15 +16,13 @@ export const ContractsList = () => {
   const [contracts, setContracts] = useState<Contract[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
-  // États pour les filtres
   const [filters, setFilters] = useState<ContractFilters>({
     title: '',
     status: ''
   });
   
-  // Utiliser le debounce pour le titre (éviter trop d'appels API)
   const debouncedTitle = useDebounce(filters.title, 1000);
+
 
   // Fonction pour récupérer les contrats avec filtres
   const fetchContracts = async (currentFilters: ContractFilters) => {
@@ -91,63 +86,6 @@ export const ContractsList = () => {
     });
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'Available':
-        return 'status-available';
-      case 'Assigned':
-        return 'status-assigned';
-      case 'Completed':
-        return 'status-completed';
-      default:
-        return '';
-    }
-  };
-
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case 'Available':
-        return 'Disponible';
-      case 'Assigned':
-        return 'Assigné';
-      case 'Completed':
-        return 'Terminé';
-      default:
-        return status;
-    }
-  };
-
-  const getStatusBadgeClass = (status: string) => {
-    switch (status) {
-      case 'Available':
-        return 'status-badge-available';
-      case 'Assigned':
-        return 'status-badge-assigned';
-      case 'Completed':
-        return 'status-badge-completed';
-      default:
-        return '';
-    }
-  };
-
-  // Fonction pour formater la description
-  const formatDescription = (description: string) => {
-    const lines = description.split('\n').filter(line => line.trim() !== '');
-    return lines.map((line, index) => (
-      <p key={index} className="contract-description-line">
-        {line}
-      </p>
-    ));
-  };
-
-  // Formater la récompense
-  const formatReward = (reward: string) => {
-    if (reward.toLowerCase().includes('récompense') || reward.toLowerCase().includes('reward')) {
-      return reward;
-    }
-    return `Récompense : ${reward}`;
-  };
-
   if (loading && contracts.length === 0) {
     return (
       <div className="contracts-container">
@@ -170,106 +108,23 @@ export const ContractsList = () => {
       <header className="contracts-header">
         <div className="header-top">
           <h1>Liste des Contrats</h1>
-          <Link to="/contracts/create" className="new-contract-button">
-            <span className="button-icon">+</span>
-            Nouveau contrat
-          </Link>
         </div>
         <p className="contracts-count">{contracts.length} contrat(s) trouvé(s)</p>
       </header>
 
       {/* Section des filtres */}
-      <div className="filters-section filter-card">
-        <div className="filters-grid">
-          {/* Filtre par titre */}
-          <div className="filter-group">
-            <Label htmlFor="title-filter" className="ui-label">
-              Titre
-            </Label>
-            <Input
-              id="title-filter"
-              type="text"
-              placeholder="Rechercher par titre..."
-              value={filters.title}
-              onChange={handleTitleChange}
-              className="input-base"
-            />
-          </div>
-
-          {/* Filtre par statut */}
-          <div className="filter-group">
-            <Label htmlFor="status-filter" className="ui-label">
-              Statut
-            </Label>
-            <Select
-              id="status-filter"
-              value={filters.status}
-              onChange={handleStatusChange}
-              className="select-base"
-            >
-              <SelectItem value="">Tous les statuts</SelectItem>
-              <SelectItem value="Available">Disponible</SelectItem>
-              <SelectItem value="Assigned">Assigné</SelectItem>
-              <SelectItem value="Completed">Terminé</SelectItem>
-            </Select>
-          </div>
-        </div>
-
-        {/* Bouton de réinitialisation */}
-        {(filters.title || filters.status) && (
-          <div className="filters-actions">
-            <button 
-              type="button" 
-              className="reset-button"
-              onClick={handleResetFilters}
-            >
-              Réinitialiser les filtres
-            </button>
-          </div>
-        )}
-      </div>
+      <ContractFiltersComponent
+        titleFilter={filters.title || ''}
+        statusFilter={filters.status}
+        onTitleChange={handleTitleChange}
+        onStatusChange={handleStatusChange}
+        showReset={!!(filters.title || filters.status)}
+      />
 
       {/* Grille des contrats */}
       <div className="contracts-grid">
         {contracts.map((contract) => (
-          <Link 
-            to={`/contracts/${contract.id}`} 
-            key={contract.id}
-            className="contract-card-link"
-          >
-            <div className={`contract-card ${getStatusColor(contract.status)}`}>
-              <div className="contract-card-header">
-                <div className="contract-header-content">
-                  <h2 className="contract-title">
-                    {contract.title}
-                  </h2>
-                  <span className={`status-badge ${getStatusBadgeClass(contract.status)}`}>
-                    {getStatusText(contract.status)}
-                  </span>
-                </div>
-              </div>
-              
-              <div className="contract-card-content">
-                <div className="contract-description">
-                  {formatDescription(contract.description)}
-                </div>
-              </div>
-              
-              <div className="contract-card-footer">
-                <div className="contract-footer-content">
-                  <div className="contract-reward">
-                    <span className="reward-value">{formatReward(contract.reward)}</span>
-                  </div>
-                  {contract.assignedTo && (
-                    <div className="contract-assigned">
-                      <span className="assigned-label">Assigné à :</span>
-                      <span className="assigned-value">Witcher #{contract.assignedTo}</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </Link>
+          <ContractCard key={contract.id} contract={contract} />
         ))}
       </div>
 

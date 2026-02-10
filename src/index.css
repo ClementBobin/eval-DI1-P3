@@ -1,5 +1,4 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+/* Removed Tailwind CSS imports - replaced with regular CSS */
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -214,43 +213,48 @@ body {
   --overlay: oklch(0 0 0 / 0.6);
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-    transition: border-color 0.2s ease, background-color 0.2s ease;
-  }
-  
-  body {
-    @apply bg-background text-foreground;
-  }
-  
-  /* Better focus styles for accessibility */
-  *:focus-visible {
-    @apply outline-2 outline-offset-2 outline-ring;
-  }
-  
-  /* Better selection styles */
-  ::selection {
-    @apply bg-primary/20 text-foreground;
-  }
-  
-  /* Better scrollbar */
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    @apply bg-muted;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    @apply bg-border rounded-full;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-border-strong;
-  }
+/* Base layer styles converted from Tailwind */
+* {
+  border-color: var(--border);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  overflow-y: auto;
+}
+
+/* Better focus styles for accessibility */
+*:focus-visible {
+  outline-width: 2px;
+  outline-offset: 2px;
+  outline-color: var(--ring);
+}
+
+/* Better selection styles */
+::selection {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+/* Better scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--border);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--border-strong);
 }
 
 /* Utility classes for enhanced contrast */

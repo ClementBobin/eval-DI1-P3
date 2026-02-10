@@ -9,16 +9,27 @@ import { ContractsList } from './pages/contracts/list';
 import { CreateContract } from './pages/contracts/create';
 import { ContractDetail } from './pages/contracts/[id]';
 import { EditContract } from './pages/contracts/edit/[id]';
+import { Hero } from './pages/hero';
 
+/**
+ * Main Application Component
+ * 
+ * Configures routing for the entire application.
+ * Routes are organized as:
+ * - Public routes: /, /login, /unauthorized
+ * - Protected routes: /contracts (all contract-related pages)
+ */
 const App = () => {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={
-            <Login redirectTo='/contracts' />
-          } />
+          {/* Public Routes */}
+          <Route path="/" element={<Hero />} />
+          
+          <Route path="/login" element={<Login />} />
 
+          {/* Protected Routes - Contracts */}
           <Route path="/contracts" element={
             <ProtectedRoute>
               <ContractsList />
@@ -43,6 +54,7 @@ const App = () => {
             </ProtectedRoute>
           } />
 
+          {/* Error Routes */}
           <Route path="/unauthorized" element={
             <Unauthorized />
           } />

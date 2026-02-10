@@ -1,227 +1,151 @@
 import * as React from "react"
-import { cn } from "@/lib/utils"
+import "./card.css"
 
 /**
- * Main Card Container Component
- * 
- * This is the primary container that wraps all card content.
- * It provides the base styling, border, shadow, and layout structure.
- * 
- * @param className - Custom CSS classes to apply
- * @param props - All other div element props
- * 
+ * Card Component
+ * A reusable card component that provides a structured layout for displaying content. It includes subcomponents for the header, title, description, action, content, and footer sections of the card. Each subcomponent accepts standard div attributes and allows for custom styling through the `className` prop.
  * @example
- * <Card>
- *   <CardHeader>
- *     <CardTitle>Card Title</CardTitle>
- *   </CardHeader>
- *   <CardContent>Content here</CardContent>
- * </Card>
- */
-function Card({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card"          // For CSS targeting and styling hooks
-      className={cn(
-        // Base card styling
-        "bg-card",              // Background color from theme
-        "text-card-foreground", // Text color from theme
-        "flex flex-col gap-6",  // Flex column layout with spacing
-        "rounded-xl border",    // Rounded corners with border
-        "py-6 shadow-sm",       // Padding and subtle shadow
-        className               // Custom classes
-      )}
-      {...props}
-    />
-  )
-}
-
-/**
- * Card Header Component
- * 
- * The top section of the card, typically containing the title,
- * description, and optional actions. Supports responsive layout
- * with container queries when an action is present.
- * 
- * @param className - Custom CSS classes to apply
- * @param props - All other div element props
- * 
- * @example
- * <CardHeader>
- *   <CardTitle>Title</CardTitle>
- *   <CardDescription>Description</CardDescription>
- *   <CardAction>
- *     <Button>Action</Button>
- *   </CardAction>
- * </CardHeader>
- */
-function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-header"    // For CSS targeting
-      className={cn(
-        "@container/card-header", // Enable container queries for responsive layout
-        "grid auto-rows-min grid-rows-[auto_auto]", // Grid layout with auto rows
-        "items-start gap-2 px-6", // Alignment and spacing
-        "has-data-[slot=card-action]:grid-cols-[1fr_auto]", // Responsive columns when action exists
-        "[.border-b]:pb-6",       // Padding bottom when border-bottom is applied
-        className                  // Custom classes
-      )}
-      {...props}
-    />
-  )
-}
-
-/**
- * Card Title Component
- * 
- * The primary heading for the card content. Uses semantic styling
- * to stand out while maintaining readability.
- * 
- * @param className - Custom CSS classes to apply
- * @param props - All other div element props
- * 
- * @example
- * <CardTitle>User Profile</CardTitle>
- */
-function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-title"    // For CSS targeting
-      className={cn(
-        "leading-none",         // Tight line height
-        "font-semibold",        // Semi-bold font weight for emphasis
-        className               // Custom classes
-      )}
-      {...props}
-    />
-  )
-}
-
-/**
- * Card Description Component
- * 
- * A secondary text element for providing additional context,
- * explanations, or subtitles. Uses muted styling to differentiate
- * from the main title.
- * 
- * @param className - Custom CSS classes to apply
- * @param props - All other div element props
- * 
- * @example
- * <CardDescription>View and edit your profile information</CardDescription>
- */
-function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-description" // For CSS targeting
-      className={cn(
-        "text-muted-foreground",   // Muted text color from theme
-        "text-sm",                 // Small text size
-        className                  // Custom classes
-      )}
-      {...props}
-    />
-  )
-}
-
-/**
- * Card Action Component
- * 
- * A container for action buttons or interactive elements in the
- * card header. Automatically positions itself to the right when
- * used within a CardHeader.
- * 
- * @param className - Custom CSS classes to apply
- * @param props - All other div element props
- * 
- * @example
- * <CardAction>
- *   <Button variant="outline">Edit</Button>
- * </CardAction>
- */
-function CardAction({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-action"    // For CSS targeting
-      className={cn(
-        "col-start-2 row-span-2 row-start-1", // Grid positioning
-        "self-start justify-self-end",        // Alignment to top-right
-        className                              // Custom classes
-      )}
-      {...props}
-    />
-  )
-}
-
-/**
- * Card Content Component
- * 
- * The main content area of the card. Provides consistent padding
- * and serves as the container for the primary card content.
- * 
- * @param className - Custom CSS classes to apply
- * @param props - All other div element props
- * 
- * @example
- * <CardContent>
- *   <p>Your main content goes here...</p>
+ * <Card className="custom-card">
+ *   <CardHeader className="custom-card-header">
+ *    <CardTitle className="custom-card-title">Card Title</CardTitle>
+ *     <CardDescription className="custom-card-description">This is a description of the card.</CardDescription>
+ *  </CardHeader>
+ *  <CardContent className="custom-card-content">
+ *   <p>This is the main content of the card.</p>
  * </CardContent>
- */
-function CardContent({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-content" // For CSS targeting
-      className={cn(
-        "px-6",               // Horizontal padding matching CardHeader
-        className             // Custom classes
-      )}
-      {...props}
-    />
-  )
-}
-
-/**
- * Card Footer Component
- * 
- * The bottom section of the card, typically used for additional
- * actions, status information, or supplemental content.
- * 
- * @param className - Custom CSS classes to apply
- * @param props - All other div element props
- * 
- * @example
- * <CardFooter>
- *   <Button>Save Changes</Button>
- *   <Button variant="outline">Cancel</Button>
+ * <CardAction className="custom-card-action">
+ *  <button>Action</button>
+ * </CardAction>
+ * <CardFooter className="custom-card-footer">
+ * <p>Card Footer</p>
  * </CardFooter>
+ * </Card>
+ * @param {string} [className] - Additional CSS classes to apply to the card element
+ * @param {React.ReactNode} children - The content to be displayed within the card
+ * @returns {JSX.Element} - The rendered card component
  */
-function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
+function Card({ className = "", ...props }: React.ComponentProps<"div">) {
   return (
     <div
-      data-slot="card-footer" // For CSS targeting
-      className={cn(
-        "flex items-center",  // Flex layout with centered items
-        "px-6",               // Horizontal padding matching CardHeader
-        "[.border-t]:pt-6",   // Padding top when border-top is applied
-        className             // Custom classes
-      )}
+      data-slot="card"
+      className={`card ${className}`.trim()}
+      {...props}
+    />
+  )
+}
+
+
+
+/**
+ * CardHeader Component
+ * A subcomponent of the Card that represents the header section. It accepts standard div attributes and allows for custom styling through the `className` prop.
+ * @param {string} [className] - Additional CSS classes to apply to the card header element
+ * @param {React.ReactNode} children - The content to be displayed within the card header
+ * @returns {JSX.Element} - The rendered card header component
+ */
+function CardHeader({ className = "", ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-header"
+      className={`card-header ${className}`.trim()}
       {...props}
     />
   )
 }
 
 /**
- * Export all card components
- * 
- * Provides a complete card system with all sub-components
+ * CardTitle Component
+ * A subcomponent of the Card that represents the title section. It accepts standard div attributes and allows for custom styling through the `className` prop.
+ * @param {string} [className] - Additional CSS classes to apply to the card title element
+ * @param {React.ReactNode} children - The content to be displayed within the card title
+ * @returns {JSX.Element} - The rendered card title component
  */
+function CardTitle({ className = "", ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-title"
+      className={`card-title ${className}`.trim()}
+      {...props}
+    />
+  )
+}
+
+
+/** * CardDescription Component
+ * A subcomponent of the Card that represents the description section. It accepts standard div attributes and allows for custom styling through the `className` prop.
+ * @param {string} [className] - Additional CSS classes to apply to the card description element
+ * @param {React.ReactNode} children - The content to be displayed within the card description
+ * @returns {JSX.Element} - The rendered card description component
+ */
+function CardDescription({ className = "", ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-description"
+      className={`card-description ${className}`.trim()}
+      {...props}
+    />
+  )
+}
+
+
+/**
+ * CardAction Component
+ * A subcomponent of the Card that represents the action section. It accepts standard div attributes and allows for custom styling through the `className` prop.
+ * @param {string} [className] - Additional CSS classes to apply to the card action element
+ * @param {React.ReactNode} children - The content to be displayed within the card action
+ * @returns {JSX.Element} - The rendered card action component
+ */
+function CardAction({ className = "", ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-action"
+      className={`card-action ${className}`.trim()}
+      {...props}
+    />
+  )
+}
+
+
+/** * CardContent Component
+ * A subcomponent of the Card that represents the main content section. It accepts standard div attributes and allows for custom styling through the `className` prop.
+ * @param {string} [className] - Additional CSS classes to apply to the card content element
+ * @param {React.ReactNode} children - The content to be displayed within the card content
+ * @returns {JSX.Element} - The rendered card content component
+ */
+function CardContent({ className = "", ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-content"
+      className={`card-content ${className}`.trim()}
+      {...props}
+    />
+  )
+}
+
+
+/**
+ * CardFooter Component
+ * A subcomponent of the Card that represents the footer section. It accepts standard div attributes and allows for custom styling through the `className` prop.
+ * @param {string} [className] - Additional CSS classes to apply to the card footer element
+ * @param {React.ReactNode} children - The content to be displayed within the card footer
+ * @returns {JSX.Element} - The rendered card footer component
+ */
+function CardFooter({ className = "", ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-footer"
+      className={`card-footer ${className}`.trim()}
+      {...props}
+    />
+  )
+}
+
 export {
-  Card,            // Main card container
-  CardHeader,      // Card header with title, description, and action
-  CardFooter,      // Card footer for actions or additional info
-  CardTitle,       // Primary card title
-  CardAction,      // Action buttons in header
-  CardDescription, // Secondary description text
-  CardContent,     // Main content area
+  Card,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardAction,
+  CardDescription,
+  CardContent,
 }

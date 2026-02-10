@@ -1,7 +1,16 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import type { Witcher } from '@/types/witchers';
 import { WitchersAPI } from '@/lib/api/witchers';
 
+/**
+ * Authentication context for managing witcher login state
+ * Provides methods for logging in and out, and stores the current witcher information
+ * Uses localStorage to persist login state across page refreshes
+ * @example
+ * // To use the authentication context in a component:
+ * const { witcher, isAuthenticated, login, logout } = useAuth();
+ */
 interface AuthContextType {
   witcher: Witcher | null;
   isAuthenticated: boolean;
@@ -10,8 +19,10 @@ interface AuthContextType {
   loading: boolean;
 }
 
+// Create the authentication context with an undefined default value
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Custom hook to use the authentication context
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -24,6 +35,11 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
+/**
+ * Authentication provider component that wraps the application and provides authentication state and methods
+ * Manages the current witcher information and login/logout functionality
+ * Loads the saved witcher from localStorage on mount to maintain login state across page refreshes
+ */
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [witcher, setWitcher] = useState<Witcher | null>(null);
   const [loading, setLoading] = useState(true);
@@ -48,6 +64,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     loadSavedWitcher();
   }, []);
 
+  /**
+   * Log in a witcher by their ID
+   * Fetches the witcher data from the API and updates the context state
+   * Saves the witcher ID in localStorage to persist login state across page refreshes
+   * @throws An error if the login fails (e.g., invalid witcher ID, network issues)
+   * @param witcherId
+   */
   const login = async (witcherId: number) => {
     try {
       setLoading(true);
@@ -62,6 +85,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  /**
+   * Log out the current witcher
+   * Clears the witcher data from the context state and removes the saved witcher ID from localStorage
+   */
   const logout = () => {
     setWitcher(null);
     localStorage.removeItem('current_witcher_id');

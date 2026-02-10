@@ -8,7 +8,7 @@ import type { Witcher } from '@/types/witchers';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { toast } from 'sonner';
-import '../contracts.css';
+import './detail.css';
 
 export const ContractDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -279,7 +279,7 @@ export const ContractDetail = () => {
               {contract.status === 'Assigned' && contract.assignedTo === witcher.id && (
                 <Button 
                   onClick={handleCompleteContract} 
-                  variant="success" 
+                  variant="default" 
                   size="lg"
                   disabled={actionLoading}
                   className="complete-button"

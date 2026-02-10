@@ -1,9 +1,6 @@
 import * as React from "react"
-import { cn } from "@/lib/utils"
+import "./textarea.css"
 
-/**
- * Textarea Component Props
- */
 interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   className?: string;
   rows?: number;
@@ -11,56 +8,28 @@ interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement
 
 /**
  * Textarea Component
- * 
- * A reusable textarea component
+ *
+ * A reusable textarea component that supports forwarding refs and accepts all standard textarea attributes. It also allows for custom styling through the `className` prop and can be configured with a default number of rows.
+ *
+ * @example
+ * <Textarea
+ *   className="custom-textarea"
+ *   rows={5}
+ *   placeholder="Enter your text here..."
+ * />
+ *
+ * @param {string} [className] - Additional CSS classes to apply to the textarea
+ * @param {number} [rows=3] - The number of visible text lines for the textarea (default is 3)
+ * @returns {JSX.Element} - The rendered textarea component
  */
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className, rows = 3, ...props }, ref) => {
+  ({ className = "", rows = 3, ...props }, ref) => {
     return (
       <textarea
         ref={ref}
         rows={rows}
         data-slot="textarea"
-        className={cn(
-          // Base styles
-          "w-full min-h-[80px]",
-          "rounded-md border",
-          "px-3 py-2",
-          "text-sm",
-          "shadow-xs",
-          "transition-[color,box-shadow]",
-          "outline-none",
-          
-          // Border & Background
-          "border-input",
-          "bg-background",
-          "dark:bg-input/30",
-          
-          // Placeholder
-          "placeholder:text-muted-foreground",
-          
-          // Selection
-          "selection:bg-primary",
-          "selection:text-primary-foreground",
-          
-          // Focus state
-          "focus-visible:border-ring",
-          "focus-visible:ring-ring/50",
-          "focus-visible:ring-[3px]",
-          
-          // Disabled state
-          "disabled:pointer-events-none",
-          "disabled:cursor-not-allowed",
-          "disabled:opacity-50",
-          
-          // Invalid state
-          "aria-invalid:border-destructive",
-          "aria-invalid:ring-destructive/20",
-          "dark:aria-invalid:ring-destructive/40",
-          
-          // Custom classes
-          className
-        )}
+        className={`textarea ${className}`.trim()}
         {...props}
       />
     )
