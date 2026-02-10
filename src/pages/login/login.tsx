@@ -12,7 +12,7 @@ import './login.css';
 
 export const Login = () => {
   const navigate = useNavigate();
-  const { login, isAuthenticated, loading: authLoading } = useAuth();
+  const { login, isAuthenticated } = useAuth();
   const [witchers, setWitchers] = useState<Witcher[]>([]);
   const [selectedWitcherId, setSelectedWitcherId] = useState<string>('');
   const [loading, setLoading] = useState(false);
@@ -86,7 +86,7 @@ export const Login = () => {
             <Select
               id="witcher-select"
               value={selectedWitcherId}
-              onChange={(e) => setSelectedWitcherId(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedWitcherId(e.target.value)}
               disabled={loading || witchers.length === 0}
               className="select-base"
             >
@@ -117,10 +117,10 @@ export const Login = () => {
           <div className="login-info-card">
             <h3 className="info-title">Comment ça marche ?</h3>
             <ul className="info-list">
-              <li>✓ Connectez-vous en tant que sorceleur</li>
-              <li>✓ Consultez les contrats disponibles</li>
-              <li>✓ Assignez-vous à un contrat</li>
-              <li>✓ Marquez les contrats comme terminés</li>
+              <li>Connectez-vous en tant que sorceleur</li>
+              <li>Consultez les contrats disponibles</li>
+              <li>Assignez-vous à un contrat</li>
+              <li>Marquez les contrats comme terminés</li>
             </ul>
           </div>
 

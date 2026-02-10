@@ -1,29 +1,16 @@
 import * as React from "react"
-import { cn } from "@/lib/utils"
 import "./select.css";
 
-/**
- * Props interface for the Select component
- */
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   className?: string;
 }
 
-/**
- * Select Component
- * 
- * A reusable select dropdown component styled to match shadcn/ui aesthetics
- * without using TailwindCSS.
- */
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-  ({ className, children, ...props }, ref) => {
+  ({ className = "", children, ...props }, ref) => {
     return (
       <select
         ref={ref}
-        className={cn(
-          "select-base",
-          className
-        )}
+        className={`select-base ${className}`.trim()}
         {...props}
       >
         {children}
@@ -34,20 +21,12 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 
 Select.displayName = "Select"
 
-/**
- * SelectItem Component
- * 
- * Individual option item for the Select component
- */
 const SelectItem = React.forwardRef<HTMLOptionElement, React.OptionHTMLAttributes<HTMLOptionElement>>(
-  ({ className, children, ...props }, ref) => {
+  ({ className = "", children, ...props }, ref) => {
     return (
       <option
         ref={ref}
-        className={cn(
-          "select-item",
-          className
-        )}
+        className={`select-item ${className}`.trim()}
         {...props}
       >
         {children}

@@ -2,13 +2,11 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ContractsAPI } from '@/lib/api/contracts';
 import type { ContractForm } from '@/types/contracts';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import { Spinner } from '@/components/ui/spinner';
 import { toast } from 'sonner';
-import '../contracts.css';
+import { ContractFormFields } from '@/components/contracts/ContractFormFields';
+import './create.css';
 
 export const CreateContract = () => {
   const navigate = useNavigate();
@@ -21,7 +19,7 @@ export const CreateContract = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev: ContractForm) => ({
       ...prev,
       [name]: value
     }));
@@ -87,68 +85,11 @@ export const CreateContract = () => {
       <div className="create-contract-content">
         <div className="form-card">
           <form onSubmit={handleSubmit} className="contract-form">
-            {/* Champ Titre */}
-            <div className="form-group">
-              <Label htmlFor="title" className="form-label required">
-                Titre du contrat
-              </Label>
-              <Input
-                id="title"
-                name="title"
-                type="text"
-                placeholder="Ex: Éliminer les Nekkers près du vieux moulin"
-                value={formData.title}
-                onChange={handleChange}
-                disabled={loading}
-                required
-                className="form-input"
-              />
-              <p className="form-hint">
-                Donnez un titre clair et descriptif au contrat
-              </p>
-            </div>
-
-            {/* Champ Description */}
-            <div className="form-group">
-              <Label htmlFor="description" className="form-label required">
-                Description
-              </Label>
-              <Textarea
-                id="description"
-                name="description"
-                placeholder="Décrivez en détail la mission, les dangers potentiels, la localisation..."
-                value={formData.description}
-                onChange={handleChange}
-                disabled={loading}
-                required
-                rows={6}
-                className="form-textarea"
-              />
-              <p className="form-hint">
-                Soyez précis sur les détails de la mission. Utilisez des retours à la ligne pour structurer votre texte.
-              </p>
-            </div>
-
-            {/* Champ Récompense */}
-            <div className="form-group">
-              <Label htmlFor="reward" className="form-label required">
-                Récompense
-              </Label>
-              <Input
-                id="reward"
-                name="reward"
-                type="text"
-                placeholder="Ex: 300 Crowns et une amélioration d'épée en argent"
-                value={formData.reward}
-                onChange={handleChange}
-                disabled={loading}
-                required
-                className="form-input"
-              />
-              <p className="form-hint">
-                Indiquez clairement la récompense pour le sorceleur
-              </p>
-            </div>
+            <ContractFormFields
+              formData={formData}
+              onChange={handleChange}
+              disabled={loading}
+            />
 
             {/* Informations additionnelles */}
             <div className="form-info-card">

@@ -8,12 +8,12 @@
    ROOT CONTAINER STYLES
    ============================================ */
 
-.top-navigation-actions {
+.navigation-actions {
     /* Layout */
     display: flex;
     gap: 0.75rem;
-    position: absolute;
-    top: 1rem;
+    position: fixed;
+    bottom: 1rem;
     right: 1rem;
     z-index: 50;
 }

@@ -1,0 +1,55 @@
+/**
+ * Textarea Component Styles
+ */
+
+.textarea {
+  width: 100%;
+  min-height: 80px;
+  border-radius: 0.375rem;
+  border: 1px solid var(--input);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  box-shadow: 0 1px 2px var(--shadow-color);
+  transition: color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+  background-color: var(--background);
+  resize: vertical;
+}
+
+.textarea::placeholder {
+  color: var(--muted-foreground);
+}
+
+.textarea::selection {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Focus state */
+.textarea:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.textarea:disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Invalid state */
+.textarea[aria-invalid="true"] {
+  border-color: var(--destructive);
+}
+
+.textarea[aria-invalid="true"]:focus-visible {
+  outline: 2px solid var(--destructive);
+  outline-offset: 2px;
+}
+
+/* Dark mode */
+.dark .textarea {
+  background-color: var(--muted);
+}

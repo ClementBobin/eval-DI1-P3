@@ -1,0 +1,33 @@
+/**
+ * Spinner Component Styles
+ */
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Size variants */
+.spinner-small {
+  width: 1rem;
+  height: 1rem;
+}
+
+.spinner-medium {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.spinner-large {
+  width: 2rem;
+  height: 2rem;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+

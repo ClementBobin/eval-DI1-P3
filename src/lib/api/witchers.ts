@@ -1,5 +1,4 @@
 import type { Witcher } from "@/types/witchers";
-import type { Error } from "@/types/global";
 import { toast } from "sonner";
 
 const API_URL = import.meta.env.VITE_API_URL;

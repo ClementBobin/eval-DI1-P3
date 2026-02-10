@@ -1,5 +1,4 @@
 import type { Contract, ContractForm, IStatus } from "@/types/contracts";
-import type { Error } from "@/types/global";
 import { toast } from "sonner";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -203,7 +202,7 @@ export const ContractsAPI = {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(status),
+        body: JSON.stringify(status.status),
       });
 
       if (!response.ok) {
@@ -218,7 +217,6 @@ export const ContractsAPI = {
       }
 
       const updatedContract = await response.json();
-      toast.success("Contract marked as completed");
       return updatedContract;
     } catch (error) {
       console.error(`Error completing contract ${id}:`, error);

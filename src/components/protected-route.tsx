@@ -1,5 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/auth-context';
+import { NavActions } from '@/components/ui/nav-actions';
+import './protected-route.css';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -10,15 +12,15 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children,
   redirectTo = '/login'
 }) => {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (loading) {
+    return <div className="protected-route-loading">Loading...</div>;
   }
 
   if (!isAuthenticated) {
     return <Navigate to={redirectTo} replace />;
   }
 
-  return <>{children}</>;
+  return <><NavActions/>{children}</>;
 };

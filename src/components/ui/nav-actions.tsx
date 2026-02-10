@@ -2,10 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/auth-context";
 import { toast } from "sonner";
-import "./top-navigation-actions.css";
+import "./nav-actions.css";
 
 /**
- * Top Navigation Actions Component
+ * Navigation Actions Component
  * 
  * Provides user-specific actions in the top navigation bar.
  * Currently handles logout functionality with user feedback
@@ -15,25 +15,13 @@ import "./top-navigation-actions.css";
  * // Usage in layout component
  * <header className="app-header">
  *   <Logo />
- *   <TopNavActions />
+ *   <NavActions />
  * </header>
  * 
- * @example
- * // Usage with additional actions
- * function EnhancedTopNavActions() {
- *   return (
- *     <div className="nav-actions">
- *       <ThemeToggle />
- *       <Notifications />
- *       <UserMenu />
- *       <TopNavActions />
- *     </div>
- *   );
- * }
  * 
  * @returns React.FC - The top navigation actions component
  */
-export default function TopNavActions() {
+export function NavActions() {
   // ============================================
   // HOOKS & CONTEXT
   // ============================================
@@ -74,7 +62,7 @@ export default function TopNavActions() {
   
   return (
     <div
-      className="top-navigation-actions"
+      className="navigation-actions"
       role="toolbar"
       aria-label="User actions"
     >
