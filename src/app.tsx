@@ -1,10 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Suspense } from 'react';
 import NotFound from './pages/not-found';
-import { Unauthorized } from './pages/unauthorized';
-import Loading from './pages/loading';
 import { AuthProvider } from '@/contexts/auth-context';
-import { Login } from './pages/login';
+import { Unauthorized } from '@/pages/unauthorized';
+import { Login } from './pages/login/login';
+import './app.css';
 
 const App = () => {
   return (
@@ -12,21 +11,15 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={
-            <Suspense fallback={<Loading />}>
-              <Login />
-            </Suspense>
+            <Login />
           } />
 
           <Route path="/unauthorized" element={
-            <Suspense fallback={<Loading />}>
-              <Unauthorized />
-            </Suspense>
+            <Unauthorized />
           } />
               
           <Route path="*" element={
-            <Suspense fallback={<Loading />}>
-              <NotFound />
-            </Suspense>
+            <NotFound />
           } />
         </Routes>
       </BrowserRouter>

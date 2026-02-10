@@ -1,0 +1,363 @@
+/* src/components/not-found-page.css */
+
+/**
+ * Not Found Page Styles
+ * 
+ * Custom CSS for the 404 Not Found error page
+ * Replaces Tailwind utility classes with semantic CSS
+ */
+
+/* ============================================
+   ROOT CONTAINER STYLES
+   ============================================ */
+
+/**
+ * Main container for the not found page
+ * Covers the entire viewport with a gradient background
+ */
+.not-found-page {
+    /* Layout */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+    
+    /* Visual */
+    background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+    background-attachment: fixed;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ============================================
+   CONTENT CONTAINER STYLES
+   ============================================ */
+
+/**
+ * Content wrapper with card-like appearance
+ * Contains all page content with proper spacing and shadow
+ */
+.not-found-container {
+    /* Layout */
+    text-align: center;
+    max-width: 42rem; /* 672px */
+    width: 100%;
+    padding: 3rem;
+    margin: 0 auto;
+    
+    /* Visual */
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 
+        0 10px 25px -5px rgba(0, 0, 0, 0.1),
+        0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    
+    /* Animation */
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .not-found-container {
+        padding: 2.5rem 1.5rem;
+    }
+}
+
+/* ============================================
+   ERROR CODE STYLES
+   ============================================ */
+
+/**
+ * Large error code display (404)
+ * Purely visual, hidden from screen readers
+ */
+.not-found-code {
+    /* Typography */
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0;
+    
+    /* Visual */
+    color: #0f172a; /* slate-900 */
+    letter-spacing: -0.05em;
+    
+    /* Animation */
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Larger code on desktop */
+@media (min-width: 768px) {
+    .not-found-code {
+        font-size: 6rem;
+    }
+}
+
+/* ============================================
+   TITLE STYLES
+   ============================================ */
+
+/**
+ * Main page heading
+ * Clear, accessible title for the error state
+ */
+.not-found-title {
+    /* Typography */
+    font-size: 1.875rem; /* 30px */
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0.5rem 0 0 0;
+    
+    /* Visual */
+    color: #0f172a; /* slate-900 */
+}
+
+/* ============================================
+   MESSAGE STYLES
+   ============================================ */
+
+/**
+ * Explanatory message below the title
+ * Provides context about the missing page
+ */
+.not-found-message {
+    /* Typography */
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.6;
+    margin: 1rem auto 0 auto;
+    max-width: 28rem; /* 448px */
+    
+    /* Visual */
+    color: #475569; /* slate-600 */
+}
+
+/* ============================================
+   BUTTON STYLES
+   ============================================ */
+
+/**
+ * Primary action button
+ * Allows users to navigate back to the home page
+ */
+.not-found-button {
+    /* Layout */
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.25rem;
+    
+    /* Typography */
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    
+    /* Visual */
+    background-color: #6366f1; /* indigo-500 */
+    color: white;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    
+    /* Transitions */
+    transition: all 0.2s ease-in-out;
+}
+
+/* Hover state */
+.not-found-button:hover {
+    background-color: #4f46e5; /* indigo-600 */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
+
+/* Focus state (keyboard navigation) */
+.not-found-button:focus {
+    outline: none;
+    box-shadow: 
+        0 0 0 2px white,
+        0 0 0 4px #6366f1;
+}
+
+/* Active state (when clicked) */
+.not-found-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+/**
+ * Slide in animation for page load
+ */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/**
+ * Floating animation for error code
+ */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* ============================================
+   ADDITIONAL FEATURES
+   ============================================ */
+
+/**
+ * Optional search suggestion
+ * Can be enabled with additional markup
+ */
+.not-found-search {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f8fafc;
+    border-radius: 0.5rem;
+    border: 1px solid #e2e8f0;
+}
+
+.not-found-search-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 0.5rem;
+}
+
+.not-found-search-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.not-found-search-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.not-found-search-item:last-child {
+    border-bottom: none;
+}
+
+.not-found-search-link {
+    color: #6366f1;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.not-found-search-link:hover {
+    color: #4f46e5;
+    text-decoration: underline;
+}
+
+/* ============================================
+   ACCESSIBILITY ENHANCEMENTS
+   ============================================ */
+
+/**
+ * High contrast mode support
+ */
+@media (prefers-contrast: high) {
+    .not-found-code {
+        color: black;
+    }
+    
+    .not-found-title {
+        color: black;
+    }
+    
+    .not-found-message {
+        color: #333;
+    }
+    
+    .not-found-button {
+        background-color: #3730a3; /* Darker indigo for high contrast */
+        border: 2px solid #1e1b4b;
+    }
+}
+
+/**
+ * Reduced motion preferences
+ */
+@media (prefers-reduced-motion: reduce) {
+    .not-found-container,
+    .not-found-button,
+    .not-found-code {
+        animation: none;
+        transition: none;
+    }
+}
+
+/**
+ * Dark mode support
+ */
+@media (prefers-color-scheme: dark) {
+    .not-found-page {
+        background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    }
+    
+    .not-found-container {
+        background-color: #1e293b; /* slate-800 */
+        border: 1px solid #334155; /* slate-700 */
+    }
+    
+    .not-found-code {
+        color: #f1f5f9; /* slate-100 */
+    }
+    
+    .not-found-title {
+        color: #f1f5f9; /* slate-100 */
+    }
+    
+    .not-found-message {
+        color: #cbd5e1; /* slate-300 */
+    }
+    
+    .not-found-button {
+        background-color: #4f46e5; /* indigo-600 */
+    }
+    
+    .not-found-button:hover {
+        background-color: #4338ca; /* indigo-700 */
+    }
+    
+    .not-found-button:focus {
+        box-shadow: 
+            0 0 0 2px #1e293b,
+            0 0 0 4px #4f46e5;
+    }
+    
+    /* Dark mode for search suggestions */
+    .not-found-search {
+        background-color: #334155;
+        border-color: #475569;
+    }
+    
+    .not-found-search-title {
+        color: #cbd5e1;
+    }
+    
+    .not-found-search-item {
+        border-color: #475569;
+    }
+    
+    .not-found-search-link {
+        color: #818cf8; /* indigo-400 */
+    }
+    
+    .not-found-search-link:hover {
+        color: #6366f1; /* indigo-500 */
+    }
+}

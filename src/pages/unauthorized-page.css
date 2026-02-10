@@ -1,0 +1,287 @@
+/**
+ * Unauthorized Page Styles
+ * 
+ * Custom CSS for the 403 Forbidden error page
+ * Replaces Tailwind utility classes with semantic CSS
+ */
+
+/* ============================================
+   ROOT CONTAINER STYLES
+   ============================================ */
+
+/**
+ * Main container for the unauthorized page
+ * Covers the entire viewport with a gradient background
+ */
+.unauthorized-page {
+    /* Layout */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100vw;
+    min-height: 100vh;
+    padding: 2rem;
+    
+    /* Visual */
+    background: linear-gradient(135deg, #f8fafc 0%, #fef2f2 100%);
+    background-attachment: fixed;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ============================================
+   CONTENT CONTAINER STYLES
+   ============================================ */
+
+/**
+ * Content wrapper with card-like appearance
+ * Contains all page content with proper spacing and shadow
+ */
+.unauthorized-container {
+    /* Layout */
+    text-align: center;
+    max-width: 42rem; /* 672px */
+    width: 100%;
+    padding: 3rem;
+    margin: 0 auto;
+    
+    /* Visual */
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 
+        0 10px 25px -5px rgba(0, 0, 0, 0.1),
+        0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    
+    /* Animation */
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .unauthorized-container {
+        padding: 2.5rem 1.5rem;
+    }
+}
+
+/* ============================================
+   ERROR CODE STYLES
+   ============================================ */
+
+/**
+ * Large error code display (403)
+ * Purely visual, hidden from screen readers
+ */
+.unauthorized-code {
+    /* Typography */
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0;
+    
+    /* Visual */
+    color: #0f172a; /* slate-900 */
+    letter-spacing: -0.05em;
+    
+    /* Animation */
+    animation: pulse 2s infinite;
+}
+
+/* Larger code on desktop */
+@media (min-width: 768px) {
+    .unauthorized-code {
+        font-size: 6rem;
+    }
+}
+
+/* ============================================
+   TITLE STYLES
+   ============================================ */
+
+/**
+ * Main page heading
+ * Clear, accessible title for the error state
+ */
+.unauthorized-title {
+    /* Typography */
+    font-size: 1.875rem; /* 30px */
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0.5rem 0 0 0;
+    
+    /* Visual */
+    color: #0f172a; /* slate-900 */
+}
+
+/* ============================================
+   MESSAGE STYLES
+   ============================================ */
+
+/**
+ * Explanatory message below the title
+ * Provides context about why access was denied
+ */
+.unauthorized-message {
+    /* Typography */
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.6;
+    margin: 1rem auto 0 auto;
+    max-width: 28rem; /* 448px */
+    
+    /* Visual */
+    color: #475569; /* slate-600 */
+}
+
+/* ============================================
+   BUTTON STYLES
+   ============================================ */
+
+/**
+ * Primary action button
+ * Allows users to navigate away from the error page
+ */
+.unauthorized-button {
+    /* Layout */
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.25rem;
+    
+    /* Typography */
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    
+    /* Visual */
+    background-color: #ef4444; /* red-500 */
+    color: white;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    
+    /* Transitions */
+    transition: all 0.2s ease-in-out;
+}
+
+/* Hover state */
+.unauthorized-button:hover {
+    background-color: #dc2626; /* red-600 */
+    transform: translateY(-1px);
+}
+
+/* Focus state (keyboard navigation) */
+.unauthorized-button:focus {
+    outline: none;
+    box-shadow: 
+        0 0 0 2px white,
+        0 0 0 4px #ef4444;
+}
+
+/* Active state (when clicked) */
+.unauthorized-button:active {
+    transform: translateY(0);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+/**
+ * Fade in animation for page load
+ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/**
+ * Subtle pulsing animation for error code
+ */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY ENHANCEMENTS
+   ============================================ */
+
+/**
+ * High contrast mode support
+ */
+@media (prefers-contrast: high) {
+    .unauthorized-code {
+        color: black;
+    }
+    
+    .unauthorized-title {
+        color: black;
+    }
+    
+    .unauthorized-message {
+        color: #333;
+    }
+    
+    .unauthorized-button {
+        background-color: #b91c1c; /* Darker red for high contrast */
+    }
+}
+
+/**
+ * Reduced motion preferences
+ */
+@media (prefers-reduced-motion: reduce) {
+    .unauthorized-container,
+    .unauthorized-button,
+    .unauthorized-code {
+        animation: none;
+        transition: none;
+    }
+}
+
+/**
+ * Dark mode support
+ */
+@media (prefers-color-scheme: dark) {
+    .unauthorized-page {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    }
+    
+    .unauthorized-container {
+        background-color: #1e293b; /* slate-800 */
+        border: 1px solid #334155; /* slate-700 */
+    }
+    
+    .unauthorized-code {
+        color: #f1f5f9; /* slate-100 */
+    }
+    
+    .unauthorized-title {
+        color: #f1f5f9; /* slate-100 */
+    }
+    
+    .unauthorized-message {
+        color: #cbd5e1; /* slate-300 */
+    }
+    
+    .unauthorized-button {
+        background-color: #dc2626; /* red-600 */
+    }
+    
+    .unauthorized-button:hover {
+        background-color: #b91c1c; /* red-700 */
+    }
+    
+    .unauthorized-button:focus {
+        box-shadow: 
+            0 0 0 2px #1e293b,
+            0 0 0 4px #dc2626;
+    }
+}
