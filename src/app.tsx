@@ -8,6 +8,7 @@ import './app.css';
 import { ContractsList } from './pages/contracts/list';
 import { CreateContract } from './pages/contracts/create';
 import { ContractDetail } from './pages/contracts/[id]';
+import { EditContract } from './pages/contracts/edit/[id]';
 
 const App = () => {
   return (
@@ -33,6 +34,12 @@ const App = () => {
           <Route path="/contracts/create" element={
             <ProtectedRoute>
               <CreateContract />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/contracts/edit/:id" element={
+            <ProtectedRoute>
+              <EditContract />
             </ProtectedRoute>
           } />
 

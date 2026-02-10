@@ -1111,3 +1111,49 @@
     gap: 6px;
   }
 }
+
+.action-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .contract-actions {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .action-group {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .action-group button {
+    flex: 1;
+    min-width: 120px;
+  }
+}
+
+.action-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .contract-actions {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .action-group {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .action-group button {
+    flex: 1;
+    min-width: 120px;
+  }
+}
