@@ -168,7 +168,13 @@ export const ContractsList = () => {
   return (
     <div className="contracts-container">
       <header className="contracts-header">
-        <h1>Liste des Contrats</h1>
+        <div className="header-top">
+          <h1>Liste des Contrats</h1>
+          <Link to="/contracts/create" className="new-contract-button">
+            <span className="button-icon">+</span>
+            Nouveau contrat
+          </Link>
+        </div>
         <p className="contracts-count">{contracts.length} contrat(s) trouvé(s)</p>
       </header>
 

@@ -6,7 +6,9 @@ import { Login } from './pages/login/login';
 import { ProtectedRoute } from '@/components/protected-route';
 import './app.css';
 import { ContractsList } from './pages/contracts/list';
+import { CreateContract } from './pages/contracts/create';
 import { ContractDetail } from './pages/contracts/[id]';
+import { EditContract } from './pages/contracts/edit/[id]';
 
 const App = () => {
   return (
@@ -29,10 +31,22 @@ const App = () => {
             </ProtectedRoute>
           } />
 
+          <Route path="/contracts/create" element={
+            <ProtectedRoute>
+              <CreateContract />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/contracts/edit/:id" element={
+            <ProtectedRoute>
+              <EditContract />
+            </ProtectedRoute>
+          } />
+
           <Route path="/unauthorized" element={
             <Unauthorized />
           } />
-              
+
           <Route path="*" element={
             <NotFound />
           } />

@@ -189,17 +189,25 @@ export const ContractDetail = () => {
         </div>
 
         <div className="contract-actions">
-          <Link to="/contracts">
-            <Button variant="outline" size="lg">
-              Retour aux contrats
-            </Button>
-          </Link>
-          
-          {(contract.status === 'Available' || contract.status === 'Assigned') && (
-            <Button variant="default" size="lg">
-              {contract.status === 'Available' ? 'Prendre le contrat' : 'Mettre à jour le statut'}
-            </Button>
-          )}
+            <div className="action-group">
+                <Link to="/contracts">
+                <Button variant="outline" size="lg">
+                    Retour aux contrats
+                </Button>
+                </Link>
+                
+                <Link to={`/contracts/${contract.id}/edit`}>
+                <Button variant="outline" size="lg">
+                    Modifier le contrat
+                </Button>
+                </Link>
+            </div>
+            
+            {(contract.status === 'Available' || contract.status === 'Assigned') && (
+                <Button variant="default" size="lg">
+                {contract.status === 'Available' ? 'Prendre le contrat' : 'Mettre à jour le statut'}
+                </Button>
+            )}
         </div>
       </div>
     </div>
