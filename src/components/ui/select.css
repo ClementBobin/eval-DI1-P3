@@ -1,0 +1,145 @@
+/* Styles pour le composant Select */
+.select-base {
+  /* Base styles */
+  height: 36px;
+  width: 100%;
+  min-width: 0;
+  
+  /* Layout */
+  padding: 4px 12px;
+  
+  /* Typography */
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  line-height: 1.5;
+  
+  /* Appearance */
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background-color: white;
+  
+  /* Effects */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  outline: none;
+  
+  /* Remove default arrow in Firefox */
+  -moz-appearance: none;
+  
+  /* Remove default arrow in Chrome/Safari */
+  -webkit-appearance: none;
+  appearance: none;
+  
+  /* Custom arrow */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+/* Focus state */
+.select-base:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Disabled state */
+.select-base:disabled {
+  background-color: #f9fafb;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Options styling */
+.select-item {
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #1f2937;
+  background-color: white;
+}
+
+.select-item:checked {
+  background-color: #eff6ff;
+  color: #1e40af;
+}
+
+.select-item:disabled {
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Styles pour le composant Input (si vous voulez les overrider) */
+.input-base {
+  /* Base styles */
+  height: 36px;
+  width: 100%;
+  min-width: 0;
+  
+  /* Layout */
+  padding: 4px 12px;
+  
+  /* Typography */
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  line-height: 1.5;
+  
+  /* Appearance */
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background-color: white;
+  
+  /* Effects */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.input-base:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.input-base::placeholder {
+  color: #9ca3af;
+}
+
+.input-base:disabled {
+  background-color: #f9fafb;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Label styles */
+.ui-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+/* Card styles for filter section */
+.filter-card {
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  padding: 20px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Grid layout for filters */
+.filters-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: end;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .filters-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
