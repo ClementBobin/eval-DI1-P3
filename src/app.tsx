@@ -3,7 +3,9 @@ import NotFound from './pages/not-found';
 import { AuthProvider } from '@/contexts/auth-context';
 import { Unauthorized } from '@/pages/unauthorized';
 import { Login } from './pages/login/login';
+import { ProtectedRoute } from '@/components/protected-route';
 import './app.css';
+import { ContractsList } from './pages/contracts/list';
 
 const App = () => {
   return (
@@ -11,7 +13,13 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={
-            <Login />
+            <Login redirectTo='/contracts' />
+          } />
+
+          <Route path="/contracts" element={
+            <ProtectedRoute>
+              <ContractsList />
+            </ProtectedRoute>
           } />
 
           <Route path="/unauthorized" element={

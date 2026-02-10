@@ -1,6 +1,5 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/auth-context';
-import Loading from '@/pages/loading';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -14,7 +13,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   const { isAuthenticated, isLoading } = useAuth();
 
   if (isLoading) {
-    return <Loading />;
+    return <div>Loading...</div>;
   }
 
   if (!isAuthenticated) {
