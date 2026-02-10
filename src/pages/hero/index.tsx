@@ -1,10 +1,3 @@
-/**
- * Hero/Landing Page Component
- * 
- * This is the main landing page that showcases the Witcher Contracts application.
- * It provides an overview of features and encourages users to get started.
- */
-
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/auth-context';
 import { Button } from '@/components/ui/button';
@@ -13,7 +6,7 @@ import './hero.css';
 
 /**
  * Hero Page Component
- * 
+ *
  * Displays a professional landing page with:
  * - Hero section with call-to-action
  * - Feature showcase
@@ -207,7 +200,7 @@ export const Hero = () => {
           <p className="cta-description">
             Join our community of professional witchers and start managing your contracts today.
           </p>
-          <Button 
+          <Button
             onClick={handleGetStarted}
             className="cta-button"
           >

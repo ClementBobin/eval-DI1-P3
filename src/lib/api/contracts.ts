@@ -9,6 +9,10 @@ const API_URL = import.meta.env.VITE_API_URL;
 export const ContractsAPI = {
   /**
    * Get all contracts with optional filtering
+   * Note: The backend supports filtering contracts by title, assigned witcher, and status. This allows for efficient retrieval of relevant contracts based on user criteria. The API will validate the filters provided and return appropriate error messages if they are invalid, ensuring a robust and user-friendly experience
+   * @param filters - An optional object containing filter criteria (title, assignedTo, status)
+   * @returns A promise that resolves to an array of contracts matching the filters
+   * @throws An error if the fetch fails or if the filters are invalid
    */
   async getAll(filters?: {
     title?: string;
@@ -45,6 +49,9 @@ export const ContractsAPI = {
 
   /**
    * Get a contract by ID
+   * @param id - The ID of the contract to retrieve
+   * @returns A promise that resolves to the contract data
+   * @throws An error if the fetch fails or if the contract is not found
    */
   async getById(id: string | number): Promise<Contract> {
     try {
@@ -68,6 +75,10 @@ export const ContractsAPI = {
 
   /**
    * Create a new contract
+   * Note: The backend will validate that the contract data is complete and that the title is unique before allowing it to be created. This ensures that all contracts in the system have the necessary information and prevents duplicate entries, maintaining data integrity and a good user experience
+   * @param contractData - An object containing the contract information (title, description, reward)
+   * @returns A promise that resolves to the created contract data
+   * @throws An error if the fetch fails or if the contract data is invalid
    */
   async create(contractData: ContractForm): Promise<Contract> {
     try {
@@ -99,6 +110,11 @@ export const ContractsAPI = {
 
   /**
    * Update a contract's basic information
+   * Note: This method is intended for updating the title, description, or reward of a contract. It does not handle status changes or assignments, which have their own dedicated methods to ensure proper workflow and validation. The backend will validate that the contract is currently Available before allowing it to be updated, ensuring that only unassigned contracts can be modified in this way
+   * @param id - The ID of the contract to update
+   * @param contractData - An object containing the updated contract information (title, description, reward)
+   * @returns A promise that resolves to the updated contract data
+   * @throws An error if the fetch fails, if the contract is not found, or if the contract cannot be updated due to its current status
    */
   async update(id: string | number, contractData: ContractForm): Promise<Contract> {
     try {
@@ -133,6 +149,10 @@ export const ContractsAPI = {
 
   /**
    * Delete a contract
+   * Note: The backend will validate that the contract is currently Available before allowing it to be deleted, ensuring that only unassigned contracts can be removed from the system
+   * @param id - The ID of the contract to delete
+   * @returns A promise that resolves to the deleted contract data
+   * @throws An error if the fetch fails, if the contract is not found, or if the contract cannot be deleted due to its current status
    */
   async delete(id: string | number): Promise<Contract> {
     try {
@@ -160,6 +180,11 @@ export const ContractsAPI = {
 
   /**
    * Assign a contract to a witcher
+   * Note: The backend will validate that the contract is currently Available before allowing it to be assigned, ensuring that only unassigned contracts can be taken by witchers
+   * @param id - The ID of the contract to assign
+   * @param witcherId - The ID of the witcher to assign the contract to
+   * @returns A promise that resolves to the updated contract data
+   * @throws An error if the fetch fails, if the contract is not found, or if the contract cannot be assigned due to its current status
    */
   async assign(id: string | number, witcherId: number): Promise<Contract> {
     try {
@@ -194,6 +219,12 @@ export const ContractsAPI = {
 
   /**
    * Update contract status to Completed
+   * Note: The backend will validate that the contract is currently Assigned before allowing it to be marked as Completed
+   * This ensures that only contracts that have been assigned to a witcher can be completed, enforcing the correct workflow
+   * @param id - The ID of the contract to update
+   * @param status - An object containing the new status (should be { status: "Completed" })
+   * @returns A promise that resolves to the updated contract data
+   * @throws An error if the fetch fails, if the contract is not found, or if the contract cannot be marked as completed due to its current status
    */
   async complete(id: string | number, status: IStatus): Promise<Contract> {
     try {

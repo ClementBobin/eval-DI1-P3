@@ -6,6 +6,19 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "default" | "xs" | "sm" | "lg" | "icon" | "icon-xs" | "icon-sm" | "icon-lg";
 }
 
+
+/**
+ * Button Component
+ * A reusable button component that supports forwarding refs and accepts all standard button attributes. It also allows for custom styling through the `className` prop and can be configured with different variants and sizes.
+ * @example
+ * <Button variant="destructive" size="lg" onClick={() => alert('Button clicked!')}>
+ *   Click Me
+ * </Button>
+ * @param {string} [variant="default"] - The visual style of the button (e.g., default, destructive, outline)
+ * @param {string} [size="default"] - The size of the button (e.g., default, xs, sm, lg)
+ * @param {React.ReactNode} children - The content to be displayed within the button
+ * @returns {JSX.Element} - The rendered button component
+ */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({
     className = "",

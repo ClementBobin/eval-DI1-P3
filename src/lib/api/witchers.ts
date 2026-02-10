@@ -5,10 +5,20 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 /**
  * Witchers API client
+ * Provides methods to interact with the backend API for witcher data
+ * Handles API calls and error management with user-friendly notifications
+ * @example
+ * // Fetch all witchers
+ * const witchers = await WitchersAPI.getAll();
+ *
+ * // Fetch a witcher by ID
+ * const witcher = await WitchersAPI.getById(1);
  */
 export const WitchersAPI = {
   /**
    * Get all witchers
+   * @returns A promise that resolves to an array of witchers
+   * @throws An error if the fetch fails
    */
   async getAll(): Promise<Witcher[]> {
     try {
@@ -28,6 +38,9 @@ export const WitchersAPI = {
 
   /**
    * Get a witcher by ID
+   * @param id - The ID of the witcher to retrieve
+   * @returns A promise that resolves to the witcher data
+   * @throws An error if the fetch fails or if the witcher is not found
    */
   async getById(id: string | number): Promise<Witcher> {
     try {

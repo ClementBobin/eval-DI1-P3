@@ -1,37 +1,26 @@
 import { Link, useLocation } from "react-router-dom";
 import "./unauthorized-page.css";
 
-/**
- * Type definition for the location state
- * 
- * This interface defines the expected structure of the location state
- * when redirecting to the unauthorized page. It allows passing a
- * redirect URL to return the user to an appropriate page.
- */
 type RedirectLocationState = {
-    /**
-     * The URL to redirect to when the user clicks "Go to Home"
-     * Can be any valid React Router path or URL
-     */
     redirectTo?: string;
 };
 
 /**
  * Unauthorized Page Component
- * 
+ *
  * Displays a 403 Forbidden error page when a user lacks proper permissions
  * to access a resource. Provides a clear message and navigation back to
  * a safe location.
- * 
+ *
  * @example
  * // In React Router configuration
  * <Route path="/unauthorized" element={<Unauthorized />} />
- * 
+ *
  * // Redirecting to unauthorized page with state
- * navigate("/unauthorized", { 
- *   state: { redirectTo: "/dashboard" } 
+ * navigate("/unauthorized", {
+ *   state: { redirectTo: "/dashboard" }
  * });
- * 
+ *
  * @returns React.FC - The unauthorized page component
  */
 export const Unauthorized: React.FC = () => {
@@ -50,19 +39,20 @@ export const Unauthorized: React.FC = () => {
      * The state is passed when navigating to this page programmatically
      */
     const state = location.state as RedirectLocationState | null | undefined;
-    
+
+
     // ============================================
     // REDIRECT LOGIC
     // ============================================
     
     /**
      * Determine the redirect destination
-     * 
+     *
      * Defaults to home page ("/") but can be overridden by:
      * 1. State passed from navigation
      * 2. Different logic based on user role or context
      */
-    let redirectTo = "/"; // Default to home page
+    let redirectTo = "/"
     
     if (state && typeof state.redirectTo === "string") {
         // Use the redirect URL from navigation state if provided
@@ -78,12 +68,12 @@ export const Unauthorized: React.FC = () => {
             className="unauthorized-page"
             role="main"
         >
-            <div 
+            <div
                 className="unauthorized-container"
                 role="document"
             >
                 {/* Error Code Display - Visual indicator only */}
-                <p 
+                <p
                     className="unauthorized-code"
                     aria-hidden="true" // Hide from screen readers (purely decorative)
                 >
@@ -91,7 +81,7 @@ export const Unauthorized: React.FC = () => {
                 </p>
                 
                 {/* Main Heading - Accessible page title */}
-                <h1 
+                <h1
                     className="unauthorized-title"
                     id="unauthorized-title"
                 >
@@ -100,7 +90,7 @@ export const Unauthorized: React.FC = () => {
                 
                 {/* Explanation Message */}
                 <p className="unauthorized-message">
-                    You don't have permission to access this page. 
+                    You don't have permission to access this page.
                     This area requires administrator privileges.
                 </p>
                 

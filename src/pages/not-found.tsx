@@ -3,36 +3,36 @@ import "./not-found-page.css";
 
 /**
  * Not Found Page Component
- * 
+ *
  * Displays a 404 error page when a user navigates to a non-existent route.
  * Provides a clear message and navigation back to the home page.
- * 
+ *
  * @example
  * // In React Router configuration
  * <Route path="*" element={<NotFound />} />
- * 
+ *
  * @returns React.FC - The 404 not found page component
  */
 export default function NotFound() {
     return (
-        <div 
+        <div
             className="not-found-page"
             role="main"
         >
-            <div 
+            <div
                 className="not-found-container"
                 role="document"
             >
                 {/* Error Code Display - Visual indicator only */}
-                <p 
+                <p
                     className="not-found-code"
-                    aria-hidden="true" // Hide from screen readers (purely decorative)
+                    aria-hidden="true"
                 >
                     404
                 </p>
                 
                 {/* Main Heading - Accessible page title */}
-                <h1 
+                <h1
                     className="not-found-title"
                     id="notfound-title"
                 >

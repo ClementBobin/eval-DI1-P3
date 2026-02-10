@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { ContractsAPI } from '@/lib/api/contracts';
 import type { Contract } from '@/types/contracts';
 import { useDebounce } from '@/hooks/use-debounce';
@@ -8,7 +7,6 @@ import { ContractCard } from '@/components/contracts/ContractCard';
 import { ContractFilters as ContractFiltersComponent } from '@/components/contracts/ContractFilters';
 import '@/styles/contracts-global.css';
 
-// Types pour les filtres
 interface ContractFilters {
   title?: string;
   status?: 'Available' | 'Assigned' | 'Completed' | '';
@@ -18,15 +16,13 @@ export const ContractsList = () => {
   const [contracts, setContracts] = useState<Contract[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
-  // États pour les filtres
   const [filters, setFilters] = useState<ContractFilters>({
     title: '',
     status: ''
   });
   
-  // Utiliser le debounce pour le titre (éviter trop d'appels API)
   const debouncedTitle = useDebounce(filters.title, 1000);
+
 
   // Fonction pour récupérer les contrats avec filtres
   const fetchContracts = async (currentFilters: ContractFilters) => {
@@ -112,10 +108,6 @@ export const ContractsList = () => {
       <header className="contracts-header">
         <div className="header-top">
           <h1>Liste des Contrats</h1>
-          <Link to="/contracts/create" className="new-contract-button">
-            <span className="button-icon">+</span>
-            Nouveau contrat
-          </Link>
         </div>
         <p className="contracts-count">{contracts.length} contrat(s) trouvé(s)</p>
       </header>

@@ -10,6 +10,23 @@ interface ContractFormFieldsProps {
   disabled?: boolean;
 }
 
+
+/**
+ * ContractFormFields Component
+ *
+ * This component renders the form fields for creating or editing a contract. It includes fields for the contract title, description, and reward. Each field is accompanied by a label and a hint to guide the user in filling out the form correctly. The component accepts the current form data, a change handler function, and an optional disabled state to control whether the fields are editable.
+ *
+ * @param {ContractForm} formData - The current state of the form data, including title, description, and reward
+ * @param {function} onChange - A function to handle changes to the input fields, updating the form data state
+ * @param {boolean} [disabled=false] - An optional prop to disable the input fields when set to true
+ * @returns {JSX.Element} - The rendered form fields for the contract form
+ * @example
+ * <ContractFormFields
+ *   formData={{ title: '', description: '', reward: '' }}
+ *   onChange={(e) => console.log(e.target.name, e.target.value)}
+ *   disabled={false}
+ * />
+ */
 export const ContractFormFields = ({ formData, onChange, disabled = false }: ContractFormFieldsProps) => {
   return (
     <>
