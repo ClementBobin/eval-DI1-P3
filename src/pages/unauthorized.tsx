@@ -1,12 +1,21 @@
 import { Link, useLocation  } from "react-router-dom";
 
+type RedirectLocationState = {
+    redirectTo?: unknown;
+};
+
+
 export const Unauthorized: React.FC = () => {
     const location = useLocation();
-    const redirectTo = (location.state as any)?.redirectTo || "/";
+    const state = location.state as RedirectLocationState | null | undefined;
+    let redirectTo = "/";
+    if (state && typeof state.redirectTo === "string") {
+        redirectTo = state.redirectTo;
+    }
 
     return (
         <div
-            className="h-full flex items-center justify-center bg-linear-to-br from-slate-50 to-red-50 font-sans p-8"
+            className="flex items-center justify-center bg-linear-to-br from-slate-50 to-red-50 font-sans p-8"
         >
             <div
                 className="text-center bg-white p-12 md:p-10 rounded-xl shadow-2xl max-w-2xl w-full"
