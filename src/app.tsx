@@ -6,6 +6,7 @@ import { Login } from './pages/login/login';
 import { ProtectedRoute } from '@/components/protected-route';
 import './app.css';
 import { ContractsList } from './pages/contracts/list';
+import { ContractDetail } from './pages/contracts/[id]';
 
 const App = () => {
   return (
@@ -19,6 +20,12 @@ const App = () => {
           <Route path="/contracts" element={
             <ProtectedRoute>
               <ContractsList />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/contracts/:id" element={
+            <ProtectedRoute>
+              <ContractDetail />
             </ProtectedRoute>
           } />
 

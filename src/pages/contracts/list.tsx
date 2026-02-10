@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ContractsAPI } from '@/lib/api/contracts';
 import type { Contract } from '@/types/contracts';
 import { Input } from '@/components/ui/input';
@@ -225,41 +226,44 @@ export const ContractsList = () => {
       {/* Grille des contrats */}
       <div className="contracts-grid">
         {contracts.map((contract) => (
-          <div 
-            key={contract.id} 
-            className={`contract-card ${getStatusColor(contract.status)}`}
+          <Link 
+            to={`/contracts/${contract.id}`} 
+            key={contract.id}
+            className="contract-card-link"
           >
-            <div className="contract-card-header">
-              <div className="contract-header-content">
-                <h2 className="contract-title">
-                  {contract.title}
-                </h2>
-                <span className={`status-badge ${getStatusBadgeClass(contract.status)}`}>
-                  {getStatusText(contract.status)}
-                </span>
-              </div>
-            </div>
-            
-            <div className="contract-card-content">
-              <div className="contract-description">
-                {formatDescription(contract.description)}
-              </div>
-            </div>
-            
-            <div className="contract-card-footer">
-              <div className="contract-footer-content">
-                <div className="contract-reward">
-                  <span className="reward-value">{formatReward(contract.reward)}</span>
+            <div className={`contract-card ${getStatusColor(contract.status)}`}>
+              <div className="contract-card-header">
+                <div className="contract-header-content">
+                  <h2 className="contract-title">
+                    {contract.title}
+                  </h2>
+                  <span className={`status-badge ${getStatusBadgeClass(contract.status)}`}>
+                    {getStatusText(contract.status)}
+                  </span>
                 </div>
-                {contract.assignedTo && (
-                  <div className="contract-assigned">
-                    <span className="assigned-label">Assigné à :</span>
-                    <span className="assigned-value">Witcher #{contract.assignedTo}</span>
+              </div>
+              
+              <div className="contract-card-content">
+                <div className="contract-description">
+                  {formatDescription(contract.description)}
+                </div>
+              </div>
+              
+              <div className="contract-card-footer">
+                <div className="contract-footer-content">
+                  <div className="contract-reward">
+                    <span className="reward-value">{formatReward(contract.reward)}</span>
                   </div>
-                )}
+                  {contract.assignedTo && (
+                    <div className="contract-assigned">
+                      <span className="assigned-label">Assigné à :</span>
+                      <span className="assigned-value">Witcher #{contract.assignedTo}</span>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 
