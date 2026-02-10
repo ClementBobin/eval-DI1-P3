@@ -1157,3 +1157,77 @@
     min-width: 120px;
   }
 }
+
+.witcher-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.assign-button,
+.complete-button {
+  width: 100%;
+}
+
+.complete-button {
+  background-color: #10b981;
+  border-color: #10b981;
+  color: white;
+}
+
+.complete-button:hover:not(:disabled) {
+  background-color: #059669;
+  border-color: #059669;
+}
+
+.complete-button:disabled {
+  background-color: #a7f3d0;
+  border-color: #a7f3d0;
+}
+
+.assigned-notice,
+.completed-notice,
+.login-notice {
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+  width: 100%;
+}
+
+.assigned-notice {
+  background-color: #fff7ed;
+  border: 1px solid #fed7aa;
+}
+
+.completed-notice {
+  background-color: #f0f9ff;
+  border: 1px solid #bae6fd;
+}
+
+.login-notice {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.notice-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: block;
+}
+
+.assigned-notice .notice-text {
+  color: #9a3412;
+}
+
+.completed-notice .notice-text {
+  color: #0369a1;
+}
+
+.login-notice .notice-text {
+  color: #475569;
+}

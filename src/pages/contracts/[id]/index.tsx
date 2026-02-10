@@ -2,17 +2,21 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ContractsAPI } from '@/lib/api/contracts';
 import { WitchersAPI } from '@/lib/api/witchers';
+import { useAuth } from '@/contexts/auth-context';
 import type { Contract } from '@/types/contracts';
 import type { Witcher } from '@/types/witchers';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
+import { toast } from 'sonner';
 import '../contracts.css';
 
 export const ContractDetail = () => {
   const { id } = useParams<{ id: string }>();
+  const { witcher, isAuthenticated } = useAuth();
   const [contract, setContract] = useState<Contract | null>(null);
-  const [witcher, setWitcher] = useState<Witcher | null>(null);
+  const [assignedWitcher, setAssignedWitcher] = useState<Witcher | null>(null);
   const [loading, setLoading] = useState(true);
+  const [actionLoading, setActionLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -34,11 +38,12 @@ export const ContractDetail = () => {
       if (contractData.assignedTo) {
         try {
           const witcherData = await WitchersAPI.getById(contractData.assignedTo);
-          setWitcher(witcherData);
+          setAssignedWitcher(witcherData);
         } catch (witcherError) {
-          console.error('Error fetching witcher:', witcherError);
-          // On continue même si on ne peut pas récupérer le sorceleur
+          console.error('Error fetching assigned witcher:', witcherError);
         }
+      } else {
+        setAssignedWitcher(null);
       }
 
     } catch (err) {
@@ -46,6 +51,52 @@ export const ContractDetail = () => {
       console.error(err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleAssignToMe = async () => {
+    if (!isAuthenticated || !witcher) {
+      toast.error('Vous devez être connecté pour vous assigner à un contrat');
+      return;
+    }
+
+    if (!contract || contract.status !== 'Available') {
+      toast.error('Ce contrat n\'est pas disponible');
+      return;
+    }
+
+    try {
+      setActionLoading(true);
+      await ContractsAPI.assign(contract.id, witcher.id);
+      toast.success(`Contrat assigné à ${witcher.name} !`);
+      fetchContractDetails(); // Recharger les données
+    } catch (error) {
+      console.error('Error assigning contract:', error);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleCompleteContract = async () => {
+    if (!isAuthenticated || !witcher) {
+      toast.error('Vous devez être connecté');
+      return;
+    }
+
+    if (!contract || contract.status !== 'Assigned' || contract.assignedTo !== witcher.id) {
+      toast.error('Vous ne pouvez pas terminer ce contrat');
+      return;
+    }
+
+    try {
+      setActionLoading(true);
+      await ContractsAPI.complete(contract.id, { status: 'Completed' });
+      toast.success('Contrat marqué comme terminé !');
+      fetchContractDetails(); // Recharger les données
+    } catch (error) {
+      console.error('Error completing contract:', error);
+    } finally {
+      setActionLoading(false);
     }
   };
 
@@ -149,19 +200,19 @@ export const ContractDetail = () => {
               </p>
             </div>
 
-            {witcher && (
+            {assignedWitcher && (
               <div className="detail-info-item">
                 <h3 className="detail-info-label">Sorceleur assigné</h3>
                 <div className="witcher-info">
-                  <p className="witcher-name">{witcher.name}</p>
-                  {witcher.school && (
-                    <p className="witcher-school">École : {witcher.school}</p>
+                  <p className="witcher-name">{assignedWitcher.name}</p>
+                  {assignedWitcher.school && (
+                    <p className="witcher-school">École : {assignedWitcher.school}</p>
                   )}
-                  {witcher.skills && witcher.skills.length > 0 && (
+                  {assignedWitcher.skills && assignedWitcher.skills.length > 0 && (
                     <div className="witcher-skills">
                       <span className="skills-label">Compétences : </span>
                       <span className="skills-list">
-                        {witcher.skills.join(', ')}
+                        {assignedWitcher.skills.join(', ')}
                       </span>
                     </div>
                   )}
@@ -169,7 +220,7 @@ export const ContractDetail = () => {
               </div>
             )}
 
-            {contract.assignedTo && !witcher && (
+            {contract.assignedTo && !assignedWitcher && (
               <div className="detail-info-item">
                 <h3 className="detail-info-label">Sorceleur assigné</h3>
                 <p className="detail-info-value">
@@ -189,25 +240,92 @@ export const ContractDetail = () => {
         </div>
 
         <div className="contract-actions">
-            <div className="action-group">
-                <Link to="/contracts">
-                <Button variant="outline" size="lg">
-                    Retour aux contrats
-                </Button>
-                </Link>
-                
-                <Link to={`/contracts/${contract.id}/edit`}>
-                <Button variant="outline" size="lg">
-                    Modifier le contrat
-                </Button>
-                </Link>
-            </div>
+          <div className="action-group">
+            <Link to="/contracts">
+              <Button variant="outline" size="lg">
+                Retour aux contrats
+              </Button>
+            </Link>
             
-            {(contract.status === 'Available' || contract.status === 'Assigned') && (
-                <Button variant="default" size="lg">
-                {contract.status === 'Available' ? 'Prendre le contrat' : 'Mettre à jour le statut'}
+            <Link to={`/contracts/${contract.id}/edit`}>
+              <Button variant="outline" size="lg">
+                Modifier le contrat
+              </Button>
+            </Link>
+          </div>
+          
+          {/* Actions spécifiques au sorceleur connecté */}
+          {isAuthenticated && witcher && (
+            <div className="witcher-actions">
+              {contract.status === 'Available' && (
+                <Button 
+                  onClick={handleAssignToMe} 
+                  variant="default" 
+                  size="lg"
+                  disabled={actionLoading}
+                  className="assign-button"
+                >
+                  {actionLoading ? (
+                    <>
+                      <Spinner size="small" />
+                      <span>Assignation...</span>
+                    </>
+                  ) : (
+                    `S'assigner (${witcher.name})`
+                  )}
                 </Button>
-            )}
+              )}
+              
+              {contract.status === 'Assigned' && contract.assignedTo === witcher.id && (
+                <Button 
+                  onClick={handleCompleteContract} 
+                  variant="success" 
+                  size="lg"
+                  disabled={actionLoading}
+                  className="complete-button"
+                >
+                  {actionLoading ? (
+                    <>
+                      <Spinner size="small" />
+                      <span>En cours...</span>
+                    </>
+                  ) : (
+                    'Marquer comme terminé'
+                  )}
+                </Button>
+              )}
+              
+              {contract.status === 'Assigned' && contract.assignedTo !== witcher.id && (
+                <div className="assigned-notice">
+                  <span className="notice-text">
+                    Ce contrat est déjà assigné à un autre sorceleur
+                  </span>
+                </div>
+              )}
+              
+              {contract.status === 'Completed' && (
+                <div className="completed-notice">
+                  <span className="notice-text">
+                    Ce contrat a été terminé
+                  </span>
+                </div>
+              )}
+            </div>
+          )}
+          
+          {/* Message si non connecté */}
+          {!isAuthenticated && contract.status === 'Available' && (
+            <div className="login-notice">
+              <span className="notice-text">
+                Connectez-vous en tant que sorceleur pour vous assigner à ce contrat
+              </span>
+              <Link to="/witchers/login">
+                <Button variant="outline" size="sm">
+                  Se connecter
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

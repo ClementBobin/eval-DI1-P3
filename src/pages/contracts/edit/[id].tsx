@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Spinner } from '@/components/ui/spinner';
 import { toast } from 'sonner';
-import '../../contracts.css';
+import '../contracts.css';
 
 export const EditContract = () => {
   const { id } = useParams<{ id: string }>();
