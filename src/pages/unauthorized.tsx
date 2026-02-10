@@ -1,36 +1,113 @@
-import { Link, useLocation  } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import "./unauthorized-page.css";
 
+/**
+ * Type definition for the location state
+ * 
+ * This interface defines the expected structure of the location state
+ * when redirecting to the unauthorized page. It allows passing a
+ * redirect URL to return the user to an appropriate page.
+ */
+type RedirectLocationState = {
+    /**
+     * The URL to redirect to when the user clicks "Go to Home"
+     * Can be any valid React Router path or URL
+     */
+    redirectTo?: string;
+};
+
+/**
+ * Unauthorized Page Component
+ * 
+ * Displays a 403 Forbidden error page when a user lacks proper permissions
+ * to access a resource. Provides a clear message and navigation back to
+ * a safe location.
+ * 
+ * @example
+ * // In React Router configuration
+ * <Route path="/unauthorized" element={<Unauthorized />} />
+ * 
+ * // Redirecting to unauthorized page with state
+ * navigate("/unauthorized", { 
+ *   state: { redirectTo: "/dashboard" } 
+ * });
+ * 
+ * @returns React.FC - The unauthorized page component
+ */
 export const Unauthorized: React.FC = () => {
+    // ============================================
+    // HOOKS & STATE MANAGEMENT
+    // ============================================
+    
+    /**
+     * Get current location object from React Router
+     * This contains the URL pathname, search params, and state
+     */
     const location = useLocation();
-    const redirectTo = (location.state as any)?.redirectTo || "/";
-
+    
+    /**
+     * Extract the location state with proper type safety
+     * The state is passed when navigating to this page programmatically
+     */
+    const state = location.state as RedirectLocationState | null | undefined;
+    
+    // ============================================
+    // REDIRECT LOGIC
+    // ============================================
+    
+    /**
+     * Determine the redirect destination
+     * 
+     * Defaults to home page ("/") but can be overridden by:
+     * 1. State passed from navigation
+     * 2. Different logic based on user role or context
+     */
+    let redirectTo = "/"; // Default to home page
+    
+    if (state && typeof state.redirectTo === "string") {
+        // Use the redirect URL from navigation state if provided
+        redirectTo = state.redirectTo;
+    }
+    
+    // ============================================
+    // RENDER
+    // ============================================
+    
     return (
-        <div
-            className="h-full flex items-center justify-center bg-linear-to-br from-slate-50 to-red-50 font-sans p-8"
+        <div 
+            className="unauthorized-page"
+            role="main"
         >
-            <div
-                className="text-center bg-white p-12 md:p-10 rounded-xl shadow-2xl max-w-2xl w-full"
-                role="main"
-                aria-labelledby="unauthorized-title"
+            <div 
+                className="unauthorized-container"
+                role="document"
             >
-                <p
-                    className="text-7xl md:text-8xl font-bold m-0 text-slate-900 tracking-tight"
-                    aria-hidden="true"
+                {/* Error Code Display - Visual indicator only */}
+                <p 
+                    className="unauthorized-code"
+                    aria-hidden="true" // Hide from screen readers (purely decorative)
                 >
                     403
                 </p>
-                <h1
+                
+                {/* Main Heading - Accessible page title */}
+                <h1 
+                    className="unauthorized-title"
                     id="unauthorized-title"
-                    className="mt-2 text-2xl font-semibold text-slate-900"
                 >
                     Access Denied
                 </h1>
-                <p className="mt-3 text-slate-600 text-lg max-w-md mx-auto">
-                    You don't have permission to access this page. This area requires administrator privileges.
+                
+                {/* Explanation Message */}
+                <p className="unauthorized-message">
+                    You don't have permission to access this page. 
+                    This area requires administrator privileges.
                 </p>
+                
+                {/* Navigation Link - Return to safe location */}
                 <Link
                     to={redirectTo}
-                    className="inline-block mt-6 bg-red-500 text-white px-5 py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                    className="unauthorized-button"
                     aria-label="Go to homepage"
                 >
                     Go to Home
@@ -38,4 +115,4 @@ export const Unauthorized: React.FC = () => {
             </div>
         </div>
     );
-}
+};

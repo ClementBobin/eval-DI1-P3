@@ -1,26 +1,37 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Suspense } from 'react';
 import NotFound from './pages/not-found';
-import { Unauthorized } from './pages/unauthorized';
-import Loading from './pages/loading';
+import { AuthProvider } from '@/contexts/auth-context';
+import { Unauthorized } from '@/pages/unauthorized';
+import { Login } from './pages/login/login';
+import { ProtectedRoute } from '@/components/protected-route';
+import './app.css';
+import { ContractsList } from './pages/contracts/list';
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/unauthorized" element={
-          <Suspense fallback={<Loading />}>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={
+            <Login redirectTo='/contracts' />
+          } />
+
+          <Route path="/contracts" element={
+            <ProtectedRoute>
+              <ContractsList />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/unauthorized" element={
             <Unauthorized />
-          </Suspense>
-        } />
-            
-        <Route path="*" element={
-          <Suspense fallback={<Loading />}>
+          } />
+              
+          <Route path="*" element={
             <NotFound />
-          </Suspense>
-        } />
-      </Routes>
-    </BrowserRouter>
+          } />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
