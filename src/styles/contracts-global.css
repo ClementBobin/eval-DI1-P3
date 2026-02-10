@@ -1,0 +1,146 @@
+/* Global Contract Page Styles */
+
+/* Conteneur principal */
+.contracts-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* En-tête */
+.contracts-header {
+  margin-bottom: 30px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.contracts-header h1 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.contracts-count {
+  color: #7f8c8d;
+  margin-top: 5px;
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.new-contract-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.new-contract-button:hover {
+  background-color: #2563eb;
+}
+
+.button-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+/* Grille des cartes */
+.contracts-grid {
+  display: grid;
+  padding-top: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 25px;
+  row-gap: 80px;
+  flex-grow: 1;
+  padding-bottom: 20px;
+}
+
+/* États */
+.loading,
+.error {
+  text-align: center;
+  padding: 50px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.loading {
+  color: #666;
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+}
+
+.error {
+  color: #d32f2f;
+  background-color: #ffebee;
+  border: 1px solid #ffcdd2;
+}
+
+.no-contracts {
+  text-align: center;
+  color: #666;
+  padding: 40px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+/* Scrollbar styling */
+.contracts-grid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.contracts-grid::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.contracts-grid::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.contracts-grid::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contracts-container {
+    padding: 15px;
+  }
+  
+  .contracts-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-height: calc(100vh - 130px);
+  }
+  
+  .header-top {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
